@@ -20,10 +20,12 @@ const StartServer = async() => {
     app.use(express.json());
     app.use("/", Routes);
     require('./utils/cron')
+    app.get('/',(req,res) => {
+        res.send("Welcome to Task Management")
+    })
     app.all('*', (req, res) => {
         res.send('Page Not Found')
     })
-
     // ============= Middleware ===================
     
     app.listen(port, () => console.log(`Server is listening on port ${port}`)).on('error', (err) => {

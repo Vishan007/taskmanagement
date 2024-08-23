@@ -44,7 +44,6 @@ const FindTaskUserById = async (req) => {
         } 
         if (dueDate) {
             filteredTasks = filteredTasks?.task?.filter(task => task?.dueDate.getDate() === new Date(dueDate).getDate())
-            console.log("🚀 ~ file: user-task-repo.js:45 ~ FindTaskUserById ~ filteredTasks:", filteredTasks)
             return filteredTasks;
         };
     }else{
@@ -68,7 +67,13 @@ const UpdateTask = async (req) => {
 };
 
 const DeleteTask = async (id) => {
-    await TaskModel.deleteOne({ _id: id });
+    const oldTask = GetTaskbyId(id)
+    if(oldTask){
+        await TaskModel.deleteOne({ _id: id });
+        return true
+    }else{
+        return false
+    }
 };
 
 const DeleteUserTask = async (req) => {
@@ -84,7 +89,6 @@ const DeleteUserTask = async (req) => {
 
 const SearchTask = async (req) => {
     const q = req.query;
-    console.log("🚀 ~ file: user-task-repo.js:77 ~ SearchTask ~ q:", req.query)
     const filteredTask = await TaskModel.find({
         $or: [
             {
