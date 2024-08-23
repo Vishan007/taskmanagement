@@ -6,8 +6,8 @@
   "author": "Vishal",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon index.js",
-    "dev": "nodemon index.js"
+    "start": "index.js",
+    "dev": "index.js"
   },
   "dependencies": {
     "axios": "^1.7.4",

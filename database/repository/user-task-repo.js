@@ -16,7 +16,7 @@ const FindUser = async (userName) => {
 }
 
 
-const CreateTask= async({_id,title,description,status,dueDate,recurrence}) => {
+const CreateTask = async({_id,title,description,status,dueDate,recurrence}) => {
     const user = await UserModel.findById(_id,{password : 0,  __v : 0});
     if (user) {
         const newTask = new TaskModel({
