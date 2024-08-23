@@ -3,7 +3,7 @@ const TaskModel = require('../database/models/Task');
 const {CreateTask} = require('../database/repository/user-task-repo')
 
 
-cron.schedule('0 0 * * *',async() => {
+cron.schedule('* * * * *',async() => {
     console.log("cron started")
     const now = new Date();
     const tasks = await TaskModel.find({lastOccurrence:false});
@@ -17,7 +17,7 @@ cron.schedule('0 0 * * *',async() => {
                 } else if (task.recurrence === 'weekly') {
                     newDueDate.setDate(newDueDate.getDate() + 7);
                 } else if (task.recurrence === 'monthly') {
-                    newDueDate.setMonth(newDueDate.getMonth() + 1);s
+                    newDueDate.setMonth(newDueDate.getMonth() + 1);
                 }
                 
                 await CreateTask({
