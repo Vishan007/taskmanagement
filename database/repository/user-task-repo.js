@@ -71,6 +71,16 @@ const DeleteTask = async (id) => {
     await TaskModel.deleteOne({ _id: id });
 };
 
+const DeleteUserTask = async (req) => {
+    const { _id } = req.user;
+    const taskId = req.params.id;
+    const user = await UserModel.findById(_id);
+    let index = user.task.indexOf(taskId)
+    if (index !== -1) {
+        user.task.splice(index, 1);
+    }
+    await user.save()
+}
 
 const SearchTask = async (req) => {
     const q = req.query;
@@ -88,4 +98,4 @@ const SearchTask = async (req) => {
     return filteredTask;
 };
 
-module.exports = {CreateUser,FindUser,FindTaskUserById,CreateTask,UpdateTask,DeleteTask,GetTaskbyId,SearchTask};
+module.exports = {CreateUser,FindUser,FindTaskUserById,CreateTask,UpdateTask,DeleteTask,GetTaskbyId,SearchTask,DeleteUserTask};

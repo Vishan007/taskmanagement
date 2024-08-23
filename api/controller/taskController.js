@@ -1,4 +1,4 @@
-const {CreateTask,FindTaskUserById,UpdateTask,DeleteTask,GetTaskbyId,SearchTask} = require('../../database/repository/user-task-repo')
+const {CreateTask,FindTaskUserById,UpdateTask,DeleteTask,GetTaskbyId,SearchTask,DeleteUserTask} = require('../../database/repository/user-task-repo')
 
 const AddTask = async (req , res) => {
     try {
@@ -32,7 +32,7 @@ const GetTaskId = async (req , res) => {
 const UpdateTaskbyId = async (req , res) => {
     try {
         const updatedTask = await UpdateTask(req)
-        return res.status(200).json({ message: 'Task updated successfully', data: updatedTask });
+        return res.status(200).json({ message: 'Task updated successfully'});
     } catch (error) {
         res.status(400).json({ message: 'Bad Request' })
     }
@@ -42,8 +42,10 @@ const DeleteTaskbyId = async (req , res) => {
     try {
         const taskId = req.params.id;
         await DeleteTask(taskId)
+        await DeleteUserTask(req)
         return res.status(200).json({ message: 'Task deleted successfully'});
     } catch (error) {
+        console.log("🚀 ~ file: taskController.js:48 ~ DeleteTaskbyId ~ error:", error)
         res.status(400).json({ message: 'Bad Request' })
     }
 }
