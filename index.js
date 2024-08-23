@@ -18,12 +18,17 @@ const StartServer = async() => {
     app.use(cors(corsOptions));
     app.use(express.json());
     app.use("/", Routes);
-    // ============= Middleware ==================
+    app.all('*', (req, res) => {
+        res.send('Page Not Found')
+    })
+    
+    // ============= Middleware ===================
     
     app.listen(port, () => console.log(`Server is listening on port ${port}`)).on('error', (err) => {
         console.log(err);
         process.exit();
     })
+
 };
 
 StartServer();
