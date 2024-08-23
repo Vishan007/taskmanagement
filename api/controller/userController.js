@@ -22,7 +22,6 @@ const LoginUser = async (req,res) => {
     try {
         const { userName, password } = req.body;
         const existingUser = await FindUser(userName);
-        console.log("🚀 ~ file: userController.js:26 ~ LoginUser ~ existingUser:", existingUser)
         if (!existingUser) {
             return res.status(404).json({ message: 'User not found' });
         }else{

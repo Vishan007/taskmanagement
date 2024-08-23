@@ -12,9 +12,10 @@ const TaskSchema = new Schema({
     dueDate : Date,
     recurrence: {
         type: String,
-        enum: ['daily', 'weekly', 'monthly', null],
+        enum: ['daily', 'weekly', 'monthly',null],
         default: null
     },
+    lastOccurrence: { type: Boolean, default: false },
     user: { type: Schema.Types.ObjectId, ref: 'user'}
 });
 

@@ -13,15 +13,17 @@ const StartServer = async() => {
     
     const port = process.env.PORT || 3000;
 
+
     // ==============  Middleware ================
     
     app.use(cors(corsOptions));
     app.use(express.json());
     app.use("/", Routes);
+    require('./utils/cron')
     app.all('*', (req, res) => {
         res.send('Page Not Found')
     })
-    
+
     // ============= Middleware ===================
     
     app.listen(port, () => console.log(`Server is listening on port ${port}`)).on('error', (err) => {
